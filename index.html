@@ -1,627 +1,364 @@
-<html>
-    <head>
-        <title>
-            OED.US
-        </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        
-<style>
-
-br{
-  user-select: none;
-}
-img{
-  user-select: none;
-}
-
-  body{
-
-
-    background-repeat: no-repeat;
-    overflow-x: hidden;
-    
-  }
-
-
-/* Not needed styles */
-
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: white;
-      font-family: Arial, Helvetica, sans-serif;
-      text-align: center;
-      height:47px;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      margin-left:-8px;
-      display: block;
-      transition: top 12s;
-      z-index:10;
-    }
-    
-    li {
-      float: right;
-      text-align: center;
-    }
-    
-    li a {
-      display: block;
-      color: black;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      transition:0.3s;
-    }
-    
-    li a:hover {
-  
-      color: #5e17eb;
-    }
-    
-    li a.active {
-     
-      color: black;
-    }
-
-
-    
-    </style>
-
-<style>
-  /* width */
-  ::-webkit-scrollbar {
-    width: 1px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background-color: #17e600;
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background-color:#0dda8e; 
-  }
-  </style>
-
-<style> /*HOVER BORDER NAVBAR*/
-   li a::after {
-                content: ' ';
-                display: block;
-                width: 0%;
-                height: 1.3px;
-                border-radius: 200px;
-                background-color:#5e17eb;
-                transition: width .3s;
-            }
-            li a:hover::after {
-                width: 100%;
-            }
-
-
-
-.text1 {
-  background: linear-gradient(to right, #5e17eb 0%, #7d43f3 50%, #ad5bf0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size:  48px;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-}
-</style>
-
-
-    
-    <ul id="navbar">
-     <a href="index.html"><img src="glow.png" style="float: left;"></a>
-      <li><a href="#contact">Bana Ulaşın</a></li>
-      <li><a href="projelerim.html">Projelerim</a></li>
-      <li><a href="index.html">Ana Sayfa</a></li>
-    </ul>
-
-
-<br>
-<br>
-<div class="background-image">
-<img width="1920" style="margin-left:0;margin-top:-20px;z-index:1;" src="zes2.png">
-</div>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OED.US</title>
     <style>
+        /* GENEL AYARLAR */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .sol_div{
-        width: 50%;
-        background-color: white;
-        margin-left:-8px;
-        height: 1000px;
-        float:left;
-    }
-    .sol_div span {
-      top:10px;
-      margin-left: 65px;
-      font-family:Arial, Helvetica, sans-serif, serif;
-      font-size:55;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden; /* Sağa sola kaymayı engeller */
+        }
 
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background-color: #17e600; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #0dda8e; }
 
-    }
+        /* NAVBAR */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-    .sol_div_span {
-      top:10px;
-margin-left: 65px;
-font-family:Arial, Helvetica, sans-serif, serif;
-font-size:25;
+        nav img { height: 40px; }
 
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
 
-    }
+        nav ul li a {
+            display: block;
+            color: black;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+        }
 
-    .sağ_div{
-        width: 50%;
-        background-color: rgb(239, 206, 255);
-        margin-right:0px;
-        height: 1000px;
-        float:left;
-    }
+        nav ul li a:hover { color: #5e17eb; }
+        
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0%;
+            height: 2px;
+            background-color: #5e17eb;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+        }
+        
+        nav ul li a:hover::after { width: 100%; }
 
-    .orta_div{
-      width: 100%;
-        background-color: dodgerblue;
-        margin-left:-10px;
-        height: 1000px;
-        float:left;
-        top:50px;
+        /* BAŞLIK VE ARKAPLAN */
+        .header-section {
+            margin-top: 80px;
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
 
-    }
+        .background-image {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: block;
+        }
 
-    
-.background-image {
+        .text1 {
+            background: linear-gradient(to right, #5e17eb 0%, #7d43f3 50%, #ad5bf0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: clamp(30px, 5vw, 48px); /* Ekran küçüldükçe yazı da küçülür */
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
+        hr {
+            width: 80%;
+            margin: 0 auto;
+            border: 1px solid #5e17eb;
+        }
 
-  top: 10;
-  }
+        /* KART TASARIMLARI (FLEXBOX KULLANIMI) */
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-/* Not needed styles */
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            padding-bottom: 20px;
+            transition: 0.4s;
+        }
 
+        .card img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #5e17eb;
+            border-radius: 15px;
+            transition: 0.4s;
+        }
+
+        .card:hover img { box-shadow: 0px 0px 21px 3px #777; }
+        .card:hover h3 { color: #5e17eb; text-shadow: 1px 3px 5px #fba3fc; }
+
+        .card h3 {
+            font-size: 21px;
+            margin: 20px 0 10px;
+            transition: 0.4s;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: #555;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .buttons1 {
+            background-color: white;
+            color: #5e17eb;
+            font-size: 15px;
+            border-radius: 200px;
+            transition: 0.4s;
+            padding: 10px 40px;
+            border: 1px solid #5e17eb;
+            cursor: pointer;
+        }
+
+        .buttons1:hover {
+            background-color: #5e17eb;
+            color: white;
+        }
+
+        /* İLETİŞİM FORMU */
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 60px auto;
+        }
+
+        #contact {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        #contact h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-control input, .form-control textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 30px;
+            font-family: inherit;
+        }
+
+        .form-control textarea {
+            border-radius: 15px;
+            height: 120px;
+            resize: none;
+        }
+
+        .form-control input:focus, .form-control textarea:focus {
+            outline: none;
+            border-color: #5e17eb;
+        }
+
+        #submit {
+            width: 100%;
+            background: white;
+            color: #5e17eb;
+            padding: 12px;
+            border: 1px solid #5e17eb;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        #submit:hover {
+            background: #5e17eb;
+            color: white;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: #5e17eb;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer a {
+            color: #ddd;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* MOBİL UYUM (MEDIA QUERIES) */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            nav ul {
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul li a {
+                padding: 10px;
+                font-size: 14px;
+            }
+            .header-section { margin-top: 120px; }
+            .card { width: 100%; }
+        }
     </style>
-<script>
-  const bg = document.querySelector('.background-image');
-const windowWidth = window.innerWidth / 1;
-const windowHeight = window.innerHeight / 1 ;
+</head>
+<body>
 
-bg.addEventListener('mousemove', (e) => {
-  const mouseX = e.clientX / windowWidth;
-  const mouseY = e.clientY / windowHeight;
-  
-  bg.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
-});
-</script>
+    <nav id="navbar">
+        <a href="index.html"><img src="glow.png" alt="Logo"></a>
+        <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="projelerim.html">Projelerim</a></li>
+            <li><a href="#contact">Bana Ulaşın</a></li>
+        </ul>
+    </nav>
 
-
-    <div style="margin-top:-1px;text-align:center;width: 1920px;">
-      <span class="text1">Profesyonel Uygulamalarım</span>
+    <div class="header-section">
+        <img class="background-image" src="zes2.png" alt="Header Background">
+        <h1 class="text1">Profesyonel Uygulamalarım</h1>
+        <hr>
     </div>
-      <hr style="width: 120%;" color="#5e17eb">
-      <br>
 
+    <div class="projects-container" id="uyg">
+        <div class="card">
+            <img src="1stockmarketapp.png" alt="Borsa">
+            <h3>Gelişmiş Borsa Uygulaması</h3>
+            <p>İstediğiniz herhangi bir hisse senedinin geçmiş değerlerini listeleyebilir, 'mumluk' grafiğini inceleyebilir ve rapor çıkartabilirsiniz!</p>
+            <button class="buttons1">Daha Fazla</button>
+        </div>
 
-</style>
-
-<style>
-  #dis_div
-  {
-    margin-left: 10px;
-    float:left;
-  }
-
-  .ic_div{
-    margin-left: 10px;
-    float:left;
-  }
-
-  .ic_div img{
-    width: 600px;
-    height:350px;
-    margin-left:250px;
-    border: 2px solid #5e17eb;
-    border-radius: 15px;
-    transition: 0.4s;
-
-  }
-
-  .ic_div img:hover{
-    box-shadow: 0px 0px 21px 3px #777;
-    
-  }
-
-  .ic_div:hover span{
-    color: #5e17eb;
-    text-shadow:1px 3px 5px #fba3fc;
-    
-  }
-
-  .ic_div span{
-    font-size: 21px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-left:402px;
-    transition: 0.4s;
-    user-select: none;
-   
-  }
-
-.ic_div button {
-  margin-top:20px;
-  background-color: white;
-  color:#5e17eb;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size:15px;
-  border-radius: 200px;
-  transition: 0.4s;
-  padding: 10px 42px 10px;
-  border: 1px solid #5e17eb;
-  cursor:pointer;
-
-}
-
-.ic_div button:hover {
-  background-color: #5e17eb;
-  color:white;
-
-}
-</style>
-
-<br><br>
-<br><br>
-      <div class="dis_div" id="#uyg">
-      
-      
-      <div class="ic_div">
-      <img src="1stockmarketapp.png">
-      <br><br>
-      <span>Gelişmiş Borsa Uygulaması</span>
-      <br><br>
-      <span style="font-size: 15px;margin-left: 305px;">İstediğiniz herhangi bir hisse senedinin geçmiş değerlerini listeleyebilir,</span><br><span style="font-size: 15px;margin-left: 351px;">'mumluk' grafiğini inceleyebilir ve rapor çıkartabilirsiniz!</span>
-      <br>
-        <button style="margin-left: 460px;" class="buttons1">Daha Fazla</button>
+        <div class="card">
+            <img src="1tryf.png" alt="Haberleşme">
+            <h3>İnternetsiz Haberleşme Uygulaması</h3>
+            <p>Her yerde istediğiniz kişi ile bu uygulama sayesinde internetsiz mesajlaşabilirsiniz!</p>
+            <button class="buttons1">Daha Fazla</button>
+        </div>
     </div>
-      
-      
-      
-      <div class="ic_div">
-        <img src="1tryf.png">
-        <br><br>
-        <span style="margin-left: 391px;">İnternetsiz Haberleşme Uygulaması</span>
-        <br><br>
-        <span style="font-size: 15px;margin-left: 283px;">Heryerde istediğiniz kişi ile bu uygulama sayesinde internetsiz mesajlaşabilirsiniz!</span>
-        <br>
-        <button style="margin-left:472px;" class="buttons1">Daha Fazla</button>
 
+    <div class="projects-container">
+        <div class="card">
+            <img src="forcex.jpeg" alt="Tarama">
+            <h3>Üst Düzey Web Tarama AP. Uygulaması</h3>
+            <p>Gelişmiş Web Arkaplan Uygulaması</p>
+            <button class="buttons1">Daha Fazla</button>
+        </div>
 
-
-      </div>
-      </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-      <div class="dis_div2">
-
-<div class="ic_div2">
-
-<img src="forcex.jpeg">
-<br><br>
-<span style="margin-left: 352px;">Üst Düzey Web Tarama AP. Uygulaması</span>
-<br><br>
-<span style="font-size:15px;margin-left: 442px;">Web Arkaplan Uygulaması</span>
-<br>
-<button style="margin-left:451px;" class="buttons1">Daha Fazla</button>
-</div>
-
-
-<div class="ic_div2">
-
-
-  <img src="sirus.png">
-  <br><br>
-  <span style="margin-left: 342px;">SIR.US Kötü Amaçlı Yazılım Tespit Uygulaması</span>
-  <br><br>
-  <span style="font-size:15px;margin-left: 442px;">İstediğiniz görselleri tarar ve indirir</span>
-  <br>
-  <button style="margin-left:477px;" class="buttons1">Daha Fazla</button>
-  </div>
-
-
-      </div>
-
-      <style>
-        #dis_div2
-        {
-          margin-left: 10px;
-          float:left;
-        }
-      
-        .ic_div2{
-          margin-left: 10px;
-          float:left;
-          margin-top:150px;
-        }
-
-
-        .ic_div2 img{
-          
-    width: 600px;
-    height:250px;
-    margin-left:250px;
-    border: 2px solid #5e17eb;
-    border-radius: 15px;
-    transition: 0.4s;
-
-  }
-
-  .ic_div2 span{
-          text-align: center;
-          font-size:21px;
-          font-family: Arial, Helvetica, sans-serif;transition: 0.4s;
-          
-      
-        }
-
-        .ic_div2 img:hover{
-    box-shadow: 0px 0px 21px 3px #777;
-    
-  }
-
-  .ic_div2:hover span{
-    color: #5e17eb;
-    text-shadow:1px 3px 5px #fba3fc;
-    
-  }
-
-
-
-.ic_div2 button {
-  margin-top:20px;
-  background-color: white;
-  color:#5e17eb;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size:15px;
-  border-radius: 200px;
-  transition: 0.4s;
-  padding: 10px 42px 10px;
-  border: 1px solid #5e17eb;
-  cursor:pointer;
-
-}
-
-.ic_div2 button:hover {
-  background-color: #5e17eb;
-  color:white;
-
-}
-</style>
-    </body>
-    
-<script>
-  var prevScrollpos = window.pageYOffset;
-  window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-    if (prevScrollpos > currentScrollPos) {
-      document.getElementById("navbar").style.opacity = "1";
-      document.getElementById("navbar").style.backgroundColor = "white";
-
-    } else {
-      document.getElementById("navbar").style.opacity = "0.6";
-      document.getElementById("navbar").style.backgroundColor = "white"
-    }
-    prevScrollpos = currentScrollPos;
-  }
-
-
-  </script>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br>
-
-<style>
-
-
-
-   
-  .container {
-      max-width: 1400px;
-      width: 100%;
-      margin: 0 auto;
-      position: relative;
-  }
-   
-  #contact input[type="text"],
-  #contact input[type="email"],
-  #contact textarea,
-  #contact button[type="submit"] {
-      font: 500 12px/16px "Roboto", Helvetica, Arial, sans-serif;
-  }
-   
-  #contact {
-      background: #f9f9f9;
-      padding: 25px;
-      border-radius: 10px;
-      margin: 100px 0;
-      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-   
-  #contact h1 {
-      display: block;
-      font-size: 30px;
-      font-weight: 300;
-      margin-bottom: 15px;
-  }
-   
-  .form-control{
-      border: none !important;
-      margin: 0 0 10px;
-      min-width: 100%;
-      padding: 0;
-      width: 100%;
-  }
-   
-  #contact input[type="text"],
-  #contact input[type="email"],
-  #contact textarea {
-      width: 100%;
-      border: 1px solid #ccc;
-      background: #FFF;
-      margin: 0 0 5px;
-      padding: 10px;border-radius: 200px;
-  }
-   
-  #contact input[type="text"]:hover,
-  #contact input[type="email"]:hover,
-  #contact textarea:hover {
-      border: 1px solid #9261f2;
-  }
-   
-  #contact textarea {
-      height: 120px;
-      max-width: 100%;
-      resize: none;
-      border-radius: 10px;
-  }
-   
-  #contact button[type="submit"] {
-      cursor: pointer;
-      width: 15%;
-      border: 1px solid #5e17eb;
-      background: white;
-      color: #5e17eb;
-      margin: 0 0 5px;
-      padding: 10px;
-      font-size: 15px;
-      -webkit-transition: 0.4s ease-in-out;
-      -moz-transition: 0.4s ease-in-out;
-      transition:  0.4s ease-in-out;
-      border-radius: 200px;
-  }
-   
-  #contact button[type="submit"]:hover {
-      background: #5e17eb;
-      color:white;
-      
-  }
-   
-  #contact button[type="submit"]:active {
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-  }
-   
-  #contact input:focus,
-  #contact textarea:focus {
-      outline: 0;
-      border: 1px solid #5e17eb;
-      
-  }</style>
-
-<div class="container">
-  <form id="contact"action="https://formspree.io/f/mbjerwzn"
-  method="POST">
-      <h1 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Bana Ulaşın</h2>
-      <div class="form-control">
-          <input name="name" placeholder="Adınız Soyadınız" type="text" required autofocus>
-      </div>
-      <div class="form-control">
-          <input name="email" placeholder="E-Posta Adresiniz" type="email" required>
-      </div>
-      <div class="form-control">
-          <input name="message" placeholder="Konu Başlığı" type="text" required>
-      </div>
-      <div name="message" class="form-control">
-          <textarea placeholder="Lütfen Mesajınızı Buraya Yazın.." type="text" required></textarea>
-      </div>
-      <div class="form-control">
-          <button name="submit" type="submit" id="submit">Gönder</button>
-      </div>
-  </form>
-</div>
-<style>
-
-  .footer {
-    color:white;
-    
-  margin-bottom: -35px;
-  
-  
-  }
-  
-  .footer span {
-    margin-left: 863px;
-    color:white;
-    font-size:15px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-decoration: none;
-    text-align: center;
-  }
-  
-  .footer a {
-    margin-left: 350px;
-  
-    color:#ddd;
-    font-size:16px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    text-align: center;
-  
-  
-  
-  }
-  .footer a:hover {
-  
-  
-    color:#eee;
-    text-decoration: underline;
-  cursor: pointer;
-  }
-  
-  
-  .footerdiv {
-    margin-left:541px;
-    margin-right: 1px;
-    float:left;
-  }
-  
-  
-  </style>
-
-  
-<div class="footer" style="background-color: #5e17eb;background-image:url('footer.png');width: 1920px;height: 330px; right: 0; bottom: 0; margin-left: -10px;">
-  <br><br><br><br>
-  
-  <br><br><br><br>
-  
-  
-  <div class="footerdiv" style="text-align:center;">
-    <a href="#proj">Projelerim</a>
-    <br><br>
-    <a id="#uyg">Uygulamalar</a>
-    <br><br>
-    <a href="https://www.youtube.com/watch?v=JTc1mDieQI8">SSS</a>
-  
+        <div class="card">
+            <img src="sirus.png" alt="Antivirüs">
+            <h3>SIR.US Kötü Amaçlı Yazılım Tespit</h3>
+            <p>İstediğiniz görselleri tarar ve indirir</p>
+            <button class="buttons1">Daha Fazla</button>
+        </div>
     </div>
-  
-  
-  <br><br><br><br><br><br><br><br><br>
-  <span>OED.US Tüm Hakları Saklıdır</span>
-  
-  </div>
 
-  
-  
+    <div class="container" id="contact">
+        <form action="https://formspree.io/f/mbjerwzn" method="POST">
+            <h1>Bana Ulaşın</h1>
+            <div class="form-control">
+                <input name="name" placeholder="Adınız Soyadınız" type="text" required>
+            </div>
+            <div class="form-control">
+                <input name="email" placeholder="E-Posta Adresiniz" type="email" required>
+            </div>
+            <div class="form-control">
+                <input name="subject" placeholder="Konu Başlığı" type="text" required>
+            </div>
+            <div class="form-control">
+                <textarea name="message" placeholder="Lütfen Mesajınızı Buraya Yazın.." required></textarea>
+            </div>
+            <button name="submit" type="submit" id="submit">Gönder</button>
+        </form>
+    </div>
 
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#proj">Projelerim</a>
+            <a href="#uyg">Uygulamalar</a>
+            <a href="https://www.youtube.com/watch?v=JTc1mDieQI8">SSS</a>
+        </div>
+        <span>OED.US Tüm Hakları Saklıdır</span>
+    </div>
+
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset;
+            var navbar = document.getElementById("navbar");
+            if (prevScrollpos > currentScrollPos) {
+                navbar.style.top = "0";
+                navbar.style.opacity = "1";
+            } else {
+                navbar.style.top = "-80px"; // Menüyü yukarı gizler
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
+</body>
 </html>
