@@ -1,0 +1,411 @@
+<html>
+    <head>
+        <title>
+            Force-X
+        </title>
+    </head>
+    <body>
+        
+<style>
+
+  body{
+
+
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+    
+  }
+
+/* Not needed styles */
+
+.img_move {
+  width: 100%;
+}
+
+.items {
+  display: -webkit-box;
+  display: flex;
+  width: 100%;
+}
+
+.items__inner {
+  position: relative;
+  width: 100%;
+}
+
+.items__layer {position: absolute !important;}
+
+.items__layer.horse.layer {
+  right: 6vw !important;
+  top: 18vh !important;
+  left: auto !important;
+  width: 20vw;
+}
+
+.items__layer.tent.layer {
+  right: 41vw !important;
+  top: 7vh !important;
+  left: auto !important;
+  width: 9vw;
+}
+
+.items__layer.camera.layer {
+  top: 44vh !important;
+  left: 28vw !important;
+  width: 6vw;
+  height: 80px;
+}
+
+.items__layer.plant.layer {
+  top: 55vh !important;
+  left: 6vw !important;
+  width: 7vw;
+  height: 300px;
+}
+
+
+.items__layer.chair.layer {
+  top: 58vh !important;
+  right: 36vw !important;
+  left: auto !important;
+  width: 12vw;
+  height: 300px;
+}
+
+
+.items__layer.snake.layer {
+  top: 6vh !important;
+  left: 8vw !important;
+  width: 14vw;
+}
+
+.items__layer .items__item {position: absolute;}
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: transparent;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      height:47px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      margin-left:-10px;
+      display: block;
+      transition: top 1s;
+    }
+    
+    li {
+      float: right;
+      text-align: center;
+    }
+    
+    li a {
+      display: block;
+      color: black;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition:0.3s;
+    }
+    
+    li a:hover:not(.active) {
+  
+      color: #00bf63;
+    }
+    
+    li a.active {
+     
+      color: black;
+    }
+
+
+    
+    </style>
+
+<style>
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #17e600;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color:#0dda8e; 
+  }
+  </style>
+
+<style> /*HOVER BORDER NAVBAR*/
+   li a::after {
+                content: ' ';
+                display: block;
+                width: 0%;
+                height: 1.3px;
+                border-radius: 200px;
+                background-color:#00bf63;
+                transition: width .3s;
+            }
+            li a:hover::after {
+                width: 100%;
+            }
+</style>
+
+
+    
+    <ul id="navbar">
+     <a href="index.html"><img src="glow.png" style="float: left;"></a>
+      <li><a class="active" href="">Bana Ulaşın</a></li>
+      <li><a href="devservers.html">Projelerim</a></li>
+      <li><a href="index.html">Ana Sayfa</a></li>
+    </ul>
+
+
+
+
+    <style>
+
+    .sol_div{
+        width: 50%;
+        background-color: rgb(246, 246, 220);
+        margin-left:-8px;
+        height: 1000px;
+        float:left;
+    }
+
+    .sağ_div{
+        width: 50%;
+        background-color: rgb(239, 206, 255);
+        margin-right:0px;
+        height: 1000px;
+        float:left;
+    }
+
+    </style>
+  <body id="js-scene"> 
+    <section id="home">
+          <div class="items">
+            <div class="items__inner">
+        <!-- DRAWINGS-->
+          <div class="items__layer horse layer" data-depth="0.62">
+            <div class="items__item">
+              <img class="img_move" src="http://charlesnach.com/img/drawings/scoot.png">
+            </div>
+          </div>
+          <div class="items__layer tent layer" data-depth="-0.83">
+            <div class="items__item">
+              <img class="img_move" src="http://charlesnach.com/img/drawings/internet.png">
+            </div>
+          </div>
+          <div class="items__layer camera layer" data-depth="0.1">
+            <div class="items__item">
+             <img class="img_move" src="http://charlesnach.com/img/drawings/camera.png">
+            </div>
+          </div>
+          <div class="items__layer plant layer" data-depth="-0.28">
+            <div class="items__item">
+             <img class="img_move" src="http://charlesnach.com/img/drawings/plant.png">
+            </div>
+          </div>
+           <div class="items__layer snake layer" data-depth="0.53">
+            <div class="items__item">
+             <img class="img_move" src="http://charlesnach.com/img/drawings/meteor.png">
+            </div>
+          </div>
+          <div class="items__layer chair layer" data-depth="-0.16">
+            <div class="items__item">
+             <img class="img_move" src="http://charlesnach.com/img/drawings/chair.png">
+            </div>
+          </div>
+          </div></div></section>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/parallax/2.1.3/parallax.min.js'></script>
+    </body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+    </body>
+    
+<script>
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      document.getElementById("navbar").style.top = "0";
+    } else {
+      document.getElementById("navbar").style.top = "-50px";
+    }
+    prevScrollpos = currentScrollPos;
+  }
+
+
+  /* PARALLAX  MOUSE MOVE*/
+var scene = document.getElementById('js-scene');
+var parallax = new Parallax(scene);
+
+const bg = document.querySelector('.background-image');
+const windowWidth = window.innerWidth / 5;
+const windowHeight = window.innerHeight / 5 ;
+
+bg.addEventListener('mousemove', (e) => {
+  const mouseX = e.clientX / windowWidth;
+  const mouseY = e.clientY / windowHeight;
+  
+  bg.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
+});
+  </script>
+</html>
