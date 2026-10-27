@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projeler — Osman Efe Demir</title>
+  <script>
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A1124;
+      --bg-surface: #101A35;
+      --text: #F6F5F0;
+      --text-muted: #949EB8;
+      --border: rgba(246, 245, 240, 0.14);
+      --accent: #C8B898;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html[data-theme="light"] {
+      --bg: #F6F5F0;
+      --bg-surface: #EFECE4;
+      --text: #0A1124;
+      --text-muted: #525E7A;
+      --border: rgba(10, 17, 36, 0.14);
+      --accent: #7D6238;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @media (pointer: fine) {
+      *, *::before, *::after {
+        cursor: none !important;
+      }
+    }
+
+    html {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    body {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* Custom Cursor */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--text);
+      border-radius: 50%;
+      position: fixed;
+      top: -20px;
+      left: -20px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border 0.25s ease;
+    }
+
+    .cursor-dot.hover {
+      width: 28px;
+      height: 28px;
+      background: transparent;
+      border: 1px solid var(--accent);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-ipa {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.42rem 0.9rem;
+      font-size: 0.78rem;
+      font-family: var(--font-sans);
+      letter-spacing: 0.04em;
+      transition: border-color 0.3s ease;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--accent);
+    }
+
+    /* Lab Architecture Layout */
+    .lab-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      padding: 4.5rem 0 6rem;
+      min-height: 75vh;
+    }
+
+    .project-list {
+      border-right: 1px solid var(--border);
+      padding-right: 2rem;
+    }
+
+    .list-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .project-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 1.6rem 0;
+      text-align: left;
+      color: var(--text-muted);
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-trigger:hover,
+    .project-trigger.active {
+      color: var(--text);
+      padding-left: 0.75rem;
+    }
+
+    .project-trigger.active .trigger-name {
+      color: var(--accent);
+    }
+
+    .trigger-name {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+
+    .trigger-sub {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Right Project Detail Blueprint */
+    .project-detail {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 3.5rem;
+      transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.35s ease;
+    }
+
+    .project-detail.switching {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .detail-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .detail-code {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .detail-title {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .detail-summary {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .spec-box h3 {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .spec-box p {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .stack-bar {
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .stack-tags {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+      margin-right: 2rem;
+    }
+
+    @media (max-width: 860px) {
+      body { padding: 0 1.5rem; }
+      nav { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+      .nav-links { gap: 1.5rem; flex-wrap: wrap; }
+      .lab-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .project-list { border-right: none; padding-right: 0; }
+      .project-detail { padding: 2rem 1.5rem; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .cursor-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="brand">
+      <span class="brand-name">OSMAN EFE DEMİR</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="makaleler.html">Yazılarım</a>
+      <a href="projeler.html" class="active">Projelerim</a>
+      <button class="theme-btn" id="themeToggle">Açık Tema</button>
+    </div>
+  </nav>
+
+  <main class="lab-layout">
+    <aside class="project-list">
+      <div class="list-label">Projeler Dizini</div>
+      <button class="project-trigger active" data-id="piasa">
+        <span class="trigger-name">Piasa</span>
+        <span class="trigger-sub">Finans Teknolojisi</span>
+      </button>
+      <button class="project-trigger" data-id="atlasai">
+        <span class="trigger-name">Atlas AI</span>
+        <span class="trigger-sub">Yapay Zeka Modeli</span>
+      </button>
+      <button class="project-trigger" data-id="nyx">
+        <span class="trigger-name">NYX</span>
+        <span class="trigger-sub">Sağlık Teknolojisi</span>
+      </button>
+    </aside>
+
+    <section class="project-detail" id="detailPanel">
+      <div class="detail-header">
+        <div class="detail-code" id="proj-code"></div>
+        <h1 class="detail-title" id="proj-title"></h1>
+        <p class="detail-summary" id="proj-summary"></p>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-box">
+          
+          <h3 id="proj-problem"></h3>
+        </div>
+        <div class="spec-box">
+          <p id="proj-arch"></p>
+        </div>
+      </div>
+
+      <div class="stack-bar">
+        <div class="stack-tags" id="proj-stack"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <a href="mailto:osmanefedemir@outlook.com">E-Posta</a>
+      <a href="https://linkedin.com/in/osman-efe-demir" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://medium.com/@osmanefedemir" target="_blank" rel="noopener">Medium</a>
+    </div>
+    <div>Osman Efe Demir</div>
+  </footer>
+
+  <script>
+    const projects = {
+      "piasa": {
+        code: "FINTECH-01",
+        title: "PIASA",
+        summary: "Özel, verimli ve bağımsız!",
+        problem: "Verilerinizin 3.şahıslara paylaşılması, sayfaların donması ve sürekli reklamlara maruz kalmak mı? ",
+        arch: "Bunun yerine tamamen size ait ve istediğiniz ergonomiye göre tasarlanmış bir finans uygulaması Piasa! Saniyeler içinde ne istersen.",
+        stack: "Python · Design Method · SQL · JSON · TradingView"
+      },
+      "atlasai": {
+        code: "AITECH-01",
+        title: "Atlas AI",
+        summary: "Bağımsız ve özelleştirilmiş yapay zeka modeli",
+        problem: "Aylık binlerce lirayı aşan ve veri gizliliğini unutan yapay zeka modellerini boş verin.",
+        arch: "İşte karşınızda Atlas. siz görevi belirtin, o dünyayı bile sırtlar.",
+        stack: "Python · Yerel LLM Entegrasyonu · İlişkisel Veritabanı · Opt. JSON"
+      },
+      "nyx": {
+        code: "HTECH-05",
+        title: "NYX",
+        summary: "Günlük alışkanlıklarınıza göre uyku kalitenizi ve günlük, haftalık, aylık sağlık skalanızı temel yöntemlerle skorlayan değerlendirme uygulaması",
+        problem: "Uyku ve tüketime bağlı yönelimlerinizin rutininize zarar vermesinden korkuyor musunuz. Endişe etmeyin, Nyx'e anlatın!",
+        arch: "Dakikalar içinde değerlendirir!",
+        stack: "Python · Design Method · SQL"
+      }
+    };
+
+    const panel = document.getElementById('detailPanel');
+    const codeEl = document.getElementById('proj-code');
+    const titleEl = document.getElementById('proj-title');
+    const summaryEl = document.getElementById('proj-summary');
+    const problemEl = document.getElementById('proj-problem');
+    const archEl = document.getElementById('proj-arch');
+    const stackEl = document.getElementById('proj-stack');
+    const triggers = document.querySelectorAll('.project-trigger');
+
+    function loadProject(id) {
+      const p = projects[id];
+      if (!p) return;
+
+      panel.classList.add('switching');
+      setTimeout(() => {
+        codeEl.textContent = p.code;
+        titleEl.textContent = p.title;
+        summaryEl.textContent = p.summary;
+        problemEl.textContent = p.problem;
+        archEl.textContent = p.arch;
+        stackEl.textContent = p.stack;
+        panel.classList.remove('switching');
+      }, 180);
+
+      triggers.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.id === id);
+      });
+    }
+
+    triggers.forEach(btn => {
+      btn.addEventListener('click', () => loadProject(btn.dataset.id));
+    });
+
+    const initialHash = window.location.hash.replace('#', '');
+    loadProject(projects[initialHash] ? initialHash : 'piasa');
+
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Theme Switcher
+    const themeBtn = document.getElementById('themeToggle');
+    function updateThemeUI() {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      themeBtn.textContent = isLight ? 'Koyu Tema' : 'Açık Tema';
+    }
+    updateThemeUI();
+
+    themeBtn.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+      updateThemeUI();
+    });
+  </script>
+</body>
+</html>

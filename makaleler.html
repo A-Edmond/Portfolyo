@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makaleler — Osman Efe Demir</title>
+  <script>
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A1124;
+      --bg-surface: #101A35;
+      --text: #F6F5F0;
+      --text-body: #DFDFD8;
+      --text-muted: #949EB8;
+      --border: rgba(246, 245, 240, 0.12);
+      --accent: #C8B898;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    html[data-theme="light"] {
+      --bg: #F6F5F0;
+      --bg-surface: #EFECE4;
+      --text: #0A1124;
+      --text-body: #1C253C;
+      --text-muted: #525E7A;
+      --border: rgba(10, 17, 36, 0.12);
+      --accent: #7D6238;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @media (pointer: fine) {
+      *, *::before, *::after {
+        cursor: none !important;
+      }
+    }
+
+    html {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    body {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* Custom Cursor */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--text);
+      border-radius: 50%;
+      position: fixed;
+      top: -20px;
+      left: -20px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border 0.25s ease;
+    }
+
+    .cursor-dot.hover {
+      width: 28px;
+      height: 28px;
+      background: transparent;
+      border: 1px solid var(--accent);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-ipa {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.42rem 0.9rem;
+      font-size: 0.78rem;
+      font-family: var(--font-sans);
+      letter-spacing: 0.04em;
+      transition: border-color 0.3s ease;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--accent);
+    }
+
+    /* Reader Layout */
+    .reader-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 4.5rem;
+      padding: 4.5rem 0 6rem;
+      min-height: 75vh;
+    }
+
+    .article-index {
+      border-right: 1px solid var(--border);
+      padding-right: 2rem;
+    }
+
+    .index-heading {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .article-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 1.35rem 0;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+    }
+
+    .article-btn:hover,
+    .article-btn.active {
+      color: var(--text);
+      padding-left: 0.5rem;
+    }
+
+    .article-btn.active .btn-title {
+      color: var(--accent);
+    }
+
+    .btn-title {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      line-height: 1.3;
+      margin-bottom: 0.35rem;
+    }
+
+    .btn-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content Area — Tonal Surface Matching Current Theme */
+    .article-viewer {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 3.5rem 4rem;
+      transition: opacity 0.35s ease, transform 0.35s ease, background-color 0.35s ease;
+    }
+
+    .article-viewer.switching {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .article-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body p {
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-body);
+    }
+
+    .article-body blockquote {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-style: italic;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+      margin: 2.2rem 0;
+      color: var(--text);
+    }
+
+    footer {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+      margin-right: 2rem;
+    }
+
+    @media (max-width: 860px) {
+      body { padding: 0 1.5rem; }
+      nav { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+      .nav-links { gap: 1.5rem; flex-wrap: wrap; }
+      .reader-container { grid-template-columns: 1fr; gap: 2.5rem; }
+      .article-index { border-right: none; padding-right: 0; }
+      .article-viewer { padding: 2rem 1.5rem; }
+      .cursor-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="brand">
+      <span class="brand-name">OSMAN EFE DEMİR</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="makaleler.html" class="active">Yazılarım</a>
+      <a href="projeler.html">Projelerim</a>
+      <button class="theme-btn" id="themeToggle">Açık Tema</button>
+    </div>
+  </nav>
+
+  <main class="reader-container">
+    <aside class="article-index">
+      <div class="index-heading">Yazı Dizini</div>
+      <button class="article-btn active" data-id="begu">
+        <span class="btn-title">Bireyin Etik Gelişimi Üzerine</span>
+        <span class="btn-meta">Psikososyal Araştırma</span>
+      </button>
+      <button class="article-btn" data-id="iityb">
+        <span class="btn-title">İnançlı ve İnaçsız Toplumlarda Yetişen...</span>
+        <span class="btn-meta">Nörobilim & Psikoloji</span>
+      </button>
+      <button class="article-btn" data-id="tsa">
+        <span class="btn-title">Ters Sanırlık Algısı Üzerine</span>
+        <span class="btn-meta">Kuramsal İnceleme</span>
+      </button>
+    </aside>
+
+    <article class="article-viewer" id="viewer">
+      <div class="article-tag" id="art-tag"></div>
+      <h1 class="article-title" id="art-title"></h1>
+      <div class="article-body" id="art-body"></div>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="mailto:osmanefedemir@outlook.com">E-Posta</a>
+      <a href="https://linkedin.com/in/osman-efe-demir" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://medium.com/@osmanefedemir" target="_blank" rel="noopener">Medium</a>
+    </div>
+    <div>Osman Efe Demir</div>
+  </footer>
+
+  <script>
+    const articles = {
+      "begu": {
+        tag: "Psikososyal Araştırma · PSA-I",
+        title: "Bireyin Etik Gelişimi Üzerine",
+        body: `
+          <h3>Özet</h3>
+          <p>Hepimiz farklı coğrafyalarda doğuyor, farklı deneyimlerle harmanlanıyor ve farklı etkenlere maruz kalıyoruz. Bunların sonucunda kimlik veya kimlikler kazanıyoruz. Bu kimlik kazanımında etik sınırlarımızı belirleyen sayısız etken bizi nasıl ve ne zaman şekillendirir? İşte bu soruya kısmen dahi olsa bir cevap vermeye çalışacağız. Psikolojik, felsefi ve emosyonal analizlerle bireylerin yönelimleri ve etik seçeneklerini değerlendireceğiz. Bu örnekleri farklı senaryolarla öne süreceğiz. Maddi refahın, çevre faktörlerinin, büyüme ortamının ve kişisel gelişimin etkilerini bu senaryolarda inceleyeceğiz. Bu sayede net olmasa da bu denemenin konusuna dair bir temel oluşturacağız</p>
+          <blockquote>"Etik, yaşayan her şeye karşı hissettiğimiz sonsuz sorumluluktur."<br>~ Albert Schweitzer</blockquote>
+          <h3>Giriş</h3>
+          <p>Konumuz; bireyin etik çerçevesinin oluşumundaki etkenler ve bireyin içinde bulunduğu senaryolar. Bu senaryolar basit ve öz olacaktır. Tabii ki normal yaşam koşulları bu kadar basit ve tek bir senaryo ile eleştirilebilir değildir. Normal yaşam koşulları daha kompleks senaryolarla karşımıza çıkacaktır. Bu da denemenin genel bir çıkarımdan ziyade bireysel bir çıkarıma dönüşmesine sebep olacaktır. Ancak temel faktörleri ele alacağımızdan genel veya bireysel çıkarımların her ikisinde de karşılaşabileceğimiz analizler yapacağız. Bu denememin konusunu ele alan birçok makale bulmak mümkün. Fakat bu makalelerden bazıları fazlasıyla genel ifadeleri bazıları ise daha öznel tutumları ele almıştır. Biz ise genel ile öznel tutumları harmanlayacağız. Bunun sonucunda net olmamasına rağmen muhtemel çıkarımlar yapacağız. Günümüzdeki faktörleri, insanların yaşamlarını, mesleklerini, ailelerini, çevrelerini, hobilerini, onları mutlu eden ve mutsuz eden şeyleri, çalışmaya karşı olan ilgi ve tavırlarını, ne uğruna çalıştıkları ve hatta biraz derine inerek ne uğruna yaşadıklarını dahi analizlerimizde göz önünde bulunduracağız. Bu denemenin sonucu; günümüz modern düzeninin insanlar üzerindeki ahlaki ve etik değişimleri ve bunların nedenlerini temel ögelerle açıklamaktır.</p>
+          <h3>Analiz ve Değerlendirme</h3>
+          <p>Bu bölümde modern insanın duygularını göz önünde bulundurmalıyız. Bireyin etik çerçevesini bugün en keskin şekilde dürten faktör; maddi refahtır. Çoğu insan maddi açıdan iyi bir durumda olmasının sonucunda mutlu olacağına inanmakta. Peki bu mutluluğa ulaşmak için insanlar etik sınırlarını aşabilir mi? Elbette aşabilir. Tabii ki her insanın bu çerçeveden çıkacağını söylemek olgun ve tutarlı bir düşünce değildir. Ancak modern insan bugün para için çalışıyor, para için yatağından kalkıyor, para için saatlerini, ulaşım araçları ile belirli belirsiz rotalarda geçiriyor. Bazı insanlar hayatta kalabilmek için çalışıyor. Kimi insan hayallerinden para için vazgeçiyor. Ortalama bir modern insan 8 saatini uykuyla, 8 saatini iş ve ulaşımda geçirir. Geriye kalan 8 saatin ne kadarı verimli olacaktır, ne kadarı kişinin bedensel ve zihinsel yorgunluğunu azaltmasına yarayacaktır. Bu 8 saat içerisinde birey; hem ailesiyle hem de kendisiyle ilgilenmelidir. Çünkü bunlar birer zorunluluktur. Bu zorunluluklardan sadece birinin aksaması, kişiyi mental anlamda sıkılmış ve yorulmuş hissettirebilir. Immanuel Kant’ın da dediği gibi; “Yapabileceğiniz en iyi şey, kendi ruh halinizi iyileştirmek ve iyi bir ruh hâlinde olmaktır.”. Zaten birey iyi bir ruh halinde olmadığı süre zarfında aldığı kararlar, söylediği sözler ve düşünceleri çevresine çok daha zarar verebilir.</p>
+          <p>Oysa maddi açıdan iyi bir refah seviyesinde olan ailelerin babaları her gün, her sabah işe gitmek zorunda olmayabilir. Anneler temel sorumluluklar dışında çocuklarına bakacak bakıcılar, eğitimciler vs. tutabilir. Çocukların ısrarcı olmasına karşın istedikleri kolaylıkla yapılıyor olabilir. İşte tam olarak maddi refahın önemi burada başlamakta. Çoğu insanı çalışmaya ve istemediği şeyleri yapmaya iten etkenlerden biri ailedir. Yani aslında maddi refahın iyi olmadığı ve iyi olduğu 2 kısa senaryodan çıkarımlar yaptık. İyi olduğu durumda, aile bireyleri sorumluluklarından kolaylıkla feragat edebilirken iyi olmadığı durumda aile bireyleri belki de istemedikleri sorumlulukları üstlenerek monoton bir hayat yaşayabilirler.</p>
+          <p>Para için çalışılmasını ve maddi refahı fazlasıyla vurguladım. Çünkü etik çerçevenin oldukça fazla etkilendiği hatta kimi zaman bu çerçeveyi kıran en çarpıcı etkenlerden biri maddi refah olabilir. Peki bireyin bu tarz bir durumda ne yapması gerekir? Bu soruyu cevaplamak aslında etik çerçeveyi çok daha değerli ve kırılmaz yapacaktır. Bunu cevaplamak için bireylerin eğilimlerini, yatkın oldukları alanlarını, halihazırda yaptıkları meslekleri, hobilerini ve hayata bakış açılarını bilmeliyiz. Elbette gözlemsel ve deneysel bir makale yazıyor olsaydık sayısız etken ve faktör dile getirirdik. Ancak temel faktörleri değerlendirmekte bu konudaki görüşleriniz için değerli çıkarımlar olacaktır. Şimdi bu çıkarımlardan başlayalım.</p>
+          <h3>A) Coğrafya</h3>
+          <p>“Coğrafya kaderdir” sözü aslında çoğu soruyu cevaplar nitelikte. Ancak biz biraz daha derine inelim. Coğrafyanın gerçekten kişinin etik sınırlarını belirleme konusunda çok önemli bir yerde olduğu yadsınamaz bir gerçektir. Bugün farklı kültürler ve farklı toplumlar, halklarına kendi ilke ve sınırlarını empoze etmekte. Bu empoze eyleminin sonucunda, doğdukları ve büyüdükleri ülke hakkında benzer hatta aynı düşüncelere sahip insanlar bir araya gelerek ulusları ortaya çıkarmakta. Uluslar ise kültürleri ve birbirine benzese de farklı olan toplumları. Bu toplumlarsa kültürleri ve inançları doğrultusunda anlaşmazlıkları ve suçları azaltması adına ülkeler kurmakta ve bu ülkelerin içindeki tüm bireylere aynı yasaları, ilkeleri ve sınırları çizmekte. İşte tam olarak burada bile etik sınırımızın kültürel ve toplumsal bir bakış açısından ibaret olduğunu görüyoruz. Arthur Schopenhauer’ın bir aforizmasını burada kullanmak isterim; “Doğumundan 5 dakika sonra, ismine, milletine, dinine ve mezhebine karar verirler ve sen ömrünün geri kalan kısmını seçmediğin şeyleri savunarak geçirirsin.”. İçinde doğduğumuz, büyüdüğümüz veya da ailemizin maruz kaldığı toplumsal etkenler yüzünden kendimize dair edindiklerimiz, aslında net olarak bizim seçmediğimiz unsurlardır. Din, mezhep, dil, millet, isim… Kısacası bizi biz yapan unsurlar.</p>
+          <h4>Peki bu durumu aksine çevirmek mümkün mü?</h3>
+          <p>Bu durumu aksine çevirmek için diğer etkenleri de dahil etmeliyiz. Kişinin doğduğu coğrafya onun ailesini, çevresini, aldığı eğitimleri, okuduğu kitapları, ilgi alanlarını fazlasıyla etkilese de bireyi olumsuz etkileyecek şartları sınırlamak da yine bireyin elindedir. Yani benim bu soruya cevabım evet olacaktır.</P>
+          <h3>B) Aile ve Çevre</h3>
+          <h4>Aile</h4>
+          <p>Doğduğumuz ve büyüdüğümüz coğrafya, kültürümüzü ve inançlarımızı etkileyecektir. Ancak bireyin gelişiminde en büyük sorumluluğu üstlenen tek bir yapı vardır, Aile. Aile, bireyin ahlaki sınırını çizen ilk büyük etkendir. Örneğin Türkiye’de doğup büyüyen ortalama bir çocuk ile ABD’de doğup büyüyen ortalama bir çocuk arasında 70 yaşına gelseler dahi ahlaki farklılıkların göze batması olağandır</P>
+          <p>Bir aile, çocuğunun alacağı kararları yalnızca o an için değil, 10–20 yıl sonrası için de düşünürler. Bu yüzden çocuklarına yatırım yaparlar, onları bilinen ve en çok para kazandıran meslekleri okumalarını isterler. Çünkü para sayesinde saygı göreceklerini veya refah içerisinde yaşayacaklarını düşünürler. Ancak çocuk hayal ettiği üniversite bölümünde okuyamayabilir. Ve aileler bu hayallere, isteklere geçici hevesler olarak bakar. Oysa bu durumun altında yatan derin bir psikolojik gerçek vardır. Geçmişte hayallerinden, olmak istedikleri insandan, konfor alanlarından vazgeçen ebeveynler 2 kişilikten birini seçmek zorunda kalıyor. Ya çocuğunu kendisinin yapmak, katılmak istediği ancak yapamadığı aktivitelere, etkinliklere götürecektir ya da çocuğunun hayallerini veya isteklerini birer heves olarak görecek ve kendi hayallerini ağır topraklarla dibe gömdüğü gibi çocuğunun hayallerini ve isteklerini de görmezden gelecek.</p>
+          <p>Carl Gustav Jung’un bir sözünü eklemek isterim; “Bir ailenin en büyük trajedisi, anne ve babanın yaşanmamış hayatlarıdır”. İşte bir ailenin büyük trajedilerinden sadece biridir bu. Hayallerinden vazgeçmeye zorunlu kılınmış ebeveynler…</p>
+          <h4>Çevre</h4>
+          <p>Elbette olmazsa olmaz etkenlerden bir diğeri de kişinin ailesi dışındaki sosyal çevresi. Sosyal çevrenin kişiyi etkilememesi olanaksızdır. Çünkü fikirler, sözler, hedefler, istekler, hayaller, davranışlar, zevkler… ister istemez bilinçaltımıza bunlar işlenir. — Burada kendi psikanalitik çıkarımlarımdan birini eklemek isterim. Olumsuz sosyal çevrelere sahip, yüksek bilinçteki bireyler, kendilerini koruma ve daha az etkilenme adına çoğu fikre karşı çıkan bir bireye dönüşür. Her şeye muhalefet dediğiniz insanlar aslında kendi kalitesine uygun bir çevrede büyümemiş kişiler olabilir.</p>
+          <h3>C) Eğitim Seviyesi</h3>
+          <p>Kişinin aldığı eğitimler ve bu eğitimlerin kalitesi elbette onu kökten değiştiremeyebilir ancak farklı düşünceler, analizler ve sorgular ile kendisini geliştirebilir. Tabii ki eğitimler bireyi kültürel ve sosyal anlamda geliştirmelidir. Bir enstrüman için eğitim almak bireyin etik sınırlarının belirlenmesinde nasıl bir rol oynar? Bunu detaylıca düşünmek gerek. Ancak kişinin ahlak felsefesi vb. konuları içeren seminerlere, panellere katılması kendi etik çerçevesini inşa etme sürecinde önemli bir rol oynayabilir. İşte tam olarak eğitim ve eğitimin kalitesinin önemini bu sebepten dolayı vurguladım. Her eğitim, bireyi etik anlamda geliştirmeyebilir.</p>
+          <h3>D) Bütünleşme (Integration)</h3>
+          <p>Integration yani bütünleşme, bu yazı için oluşturduğum bir kavram. Aslında birey sadece bu 3 başlık ile etik sınırlarını çizmesi pek mümkün değildir. Çünkü insan karmaşık yapıdır. Her bilgiyi emen bir beyne sahiptir. Bu beyin bilgileri abcd… diye raflara dizmez. Evet, a harfi rafında olabilir. Ama alfabenin ortasında yer alması mantıksız olacaktır. İşte tam olarak bize düşende bu. Bilgiler, olanaklar ve yaşadıklarımızla şekilleniyoruz. Ama daha çok bu şekilleşmeye nasıl yön verdiğimiz, fikirlerimiz üzerinde acı ama gerçek sorular sorarak doğruluğunu sert bir şekilde test etmeliyiz. Yani birey her bilgiye sahip olabilir ve evet bu kolaydır. Zor olan bu bilgilerle karakterine ve zihnine yön verebilmesidir. İşte ben buna düşünme ve sorgulayabilme yetisi diyorum. Hatta bu yeti doğduğumuz ilk aylardan itibaren başlıyor. Ancak kimisi yetişkinliğinden sonra bu yetiyi kullanmayı bırakıyor…</p>
+          <p>Eğer etik sınırların idealini bana soracak olursanız, öncelikle birey için sonra toplum için yararlı olan, sosyal ve duygusal anlamda kişilerin aklında şüphe, korku, endişe gibi soru işaretleri bıraktırmayacak davranışlar, ahlaklı ve doğru olandır. Tabii ki istisnalar bulabiliriz ancak kaide bozulmayacaktır.</p>
+          <p>Okuduğunuz için teşekkür ederim.</p>
+          <p>Bu yazı bilimsel bir geçerliliğe sahip değildir!</p>
+        `
+      },
+      "iityb": {
+        tag: "Nörobilim Derlemesi · Psikososyal Derleme · PSA-II",
+        title: "İnançlı ve İnançsız Toplumlarda Yetişen...",
+        body: `
+          Yazım aşamasında
+        `
+      },
+      "tsa": {
+        tag: "Kuramsal İnceleme · Psikanaliz · PSA-III",
+        title: "Ters Sanırlık Algısı Üzerine",
+        body: `
+          Yazım aşamasında
+        `
+      }
+    };
+
+    const viewer = document.getElementById('viewer');
+    const tagEl = document.getElementById('art-tag');
+    const titleEl = document.getElementById('art-title');
+    const bodyEl = document.getElementById('art-body');
+    const buttons = document.querySelectorAll('.article-btn');
+
+    function loadArticle(id) {
+      const data = articles[id];
+      if (!data) return;
+
+      viewer.classList.add('switching');
+      setTimeout(() => {
+        tagEl.textContent = data.tag;
+        titleEl.textContent = data.title;
+        bodyEl.innerHTML = data.body;
+        viewer.classList.remove('switching');
+      }, 200);
+
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.id === id);
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => loadArticle(btn.dataset.id));
+    });
+
+    const initialHash = window.location.hash.replace('#', '');
+    loadArticle(articles[initialHash] ? initialHash : 'begu');
+
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Theme Switcher
+    const themeBtn = document.getElementById('themeToggle');
+    function updateThemeUI() {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      themeBtn.textContent = isLight ? 'Koyu Tema' : 'Açık Tema';
+    }
+    updateThemeUI();
+
+    themeBtn.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+      updateThemeUI();
+    });
+  </script>
+</body>
+</html>
